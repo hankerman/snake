@@ -2,7 +2,12 @@
 #include <windows.h>
 using namespace std;
 
-void fill(char arr[][100], int horizontale, int vertical) {
+const int horizontal = 50, vertical = 25;
+char pole[vertical][horizontal];
+int xsnake = horizontal / 2, ysnake = vertical / 2;
+char snake = '@';
+
+void fill(char arr[][50], int horizontale, int vertical) {
 
     char wall = '#', empt = ' ';
 
@@ -22,7 +27,20 @@ void fill(char arr[][100], int horizontale, int vertical) {
     }
 }
 
-void print(char arr[][100], int horizontale, int vertical) {
+void positionSnake(char arr[][50], int xsnake, int ysnake, char snake) {
+
+    for (int i = 0; i < vertical; i++) {
+        for (int j = 0; j < horizontal; j++) {
+            if (i == ysnake && j == xsnake) {
+                arr[i][j] = snake;
+            }
+        }
+    }
+
+}
+
+void print(char arr[][50], int horizontale, int vertical) {
+    positionSnake(pole, xsnake, ysnake, snake);
     for (int i = 0; i < vertical; i++) {
         for (int j = 0; j < horizontale; j++) {
             cout << arr[i][j];
@@ -34,18 +52,18 @@ void print(char arr[][100], int horizontale, int vertical) {
 
 int main()
 {
-    setlocale(LC_ALL, "ru");
-
-    const int horizontal = 100, vertical = 25;
-    char pole[vertical][horizontal];
-    int n = 1;
+    setlocale(LC_ALL, "ru");   
+   
+    int n = 1, score = 0;
 
     fill(pole, horizontal, vertical);
     //print(pole, horizontal, vertical);
 
     while (n != 0) {
+        
         print(pole, horizontal, vertical);
-        Sleep(500);
+        cout << "Ваш счет: " << score;
+        Sleep(1000);
         system("cls");
     }
     
