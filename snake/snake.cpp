@@ -1,5 +1,7 @@
 ﻿#include <iostream>
 #include <windows.h>
+#include <conio.h>
+
 using namespace std;
 
 const int horizontal = 50, vertical = 25;
@@ -27,8 +29,32 @@ void fill(char arr[][50], int horizontale, int vertical) {
     }
 }
 
-void positionSnake(char arr[][50], int xsnake, int ysnake, char snake) {
+int xpositionSnake(int xsnake) {
+    int position = xsnake, key = _getch();
+    switch (key) {
+    case 72: position++;
+        break;
+    case 80: position--;
+        break;
+    }
 
+    return position;
+}
+
+int ypositionSnake(int ysnake) {
+    int position = ysnake, key = _getch();
+    switch (key) {
+    case 77: position++;
+        break;
+    case 75: position--;
+        break;
+    }
+
+    return position;
+}
+void positionSnake(char arr[][50], int xsnake, int ysnake, char snake) {
+    xpositionSnake(xsnake);
+    ypositionSnake(ysnake);
     for (int i = 0; i < vertical; i++) {
         for (int j = 0; j < horizontal; j++) {
             if (i == ysnake && j == xsnake) {
@@ -55,11 +81,12 @@ int main()
     setlocale(LC_ALL, "ru");   
    
     int n = 1, score = 0;
-
+    
     fill(pole, horizontal, vertical);
     //print(pole, horizontal, vertical);
 
-    while (n != 0) {
+    while (n != 0) {        
+        
         
         print(pole, horizontal, vertical);
         cout << "Ваш счет: " << score;
