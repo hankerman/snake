@@ -163,6 +163,6 @@ int main()
     if (score == 100) {
         cout << "Вы победили!!!";
     }
-    
+    system("PAUSE");
     return 0;
 }
