@@ -4,14 +4,14 @@
 
 using namespace std;
 char wall = '#', empt = '.';
-const int horizontal = 30, vertical = 20;
+const int horizontal = 50, vertical = 25;
 char pole[vertical][horizontal];
 int xsnake = horizontal / 2, ysnake = vertical / 2;
 char snake = '@';
 char direction;
-int step, score = 0;
+int step, score = 0, n = 1;
 
-void fill(char arr[][30], int horizontale, int vertical) {
+void fill(char arr[][horizontal], int horizontale, int vertical) {
 
     //char wall = '#', empt = ' ';
 
@@ -93,7 +93,13 @@ void positionSnake(char arr[][horizontal], int xsnake, int ysnake, char snake) {
     for (int i = 0; i < vertical; i++) {
         for (int j = 0; j < horizontal; j++) {
             if (i == ::ysnake && j == ::xsnake) {
-                arr[i][j] = snake;
+                if (arr[i][j] == empt) {
+                    arr[i][j] = snake;
+                }
+                else if (arr[i][j] == wall){
+                    ::n = 0;
+
+                }
             }
         }
     }
@@ -108,22 +114,22 @@ void print(char arr[][horizontal], int horizontale, int vertical) {
         }
         cout << endl;
     }
+    Sleep(500);
 }
 
 
 int main()
 {
-    setlocale(LC_ALL, "ru");   
-   
-    int n = 1;
-    
+    setlocale(LC_ALL, "ru");     
+        
     fill(pole, horizontal, vertical);
     print(pole, horizontal, vertical);
     positionSnakestart(pole, xsnake, ysnake, snake);
-    while (n != 0) {        
-        system("cls");        
-        print(pole, horizontal, vertical);
+    while (::n != 0) {        
+        system("cls");
         cout << "Ваш счет: " << score << endl;
+        print(pole, horizontal, vertical);
+        
         //Sleep(1000);        
         //cout << "Выберите направление змейки (U - вверх, D- вниз, R - вправо, L - влево):";
         //cin >> direction;
@@ -132,6 +138,10 @@ int main()
         //system("PAUSE >> VOID");
         
     }
+
+    system("cls");
+    cout << "Конец игры!!!" << endl;
+    cout << "Ваш счет: " << score << endl;
     
     return 0;
 }
