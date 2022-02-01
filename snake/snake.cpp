@@ -3,15 +3,17 @@
 #include <conio.h>
 
 using namespace std;
-
+char wall = '#', empt = '.';
 const int horizontal = 50, vertical = 25;
 char pole[vertical][horizontal];
 int xsnake = horizontal / 2, ysnake = vertical / 2;
 char snake = '@';
+char direction;
+int step;
 
 void fill(char arr[][50], int horizontale, int vertical) {
 
-    char wall = '#', empt = ' ';
+    //char wall = '#', empt = ' ';
 
     for (int i = 0; i < vertical; i++) {
         for (int j = 0; j < horizontale; j++) {
@@ -29,35 +31,45 @@ void fill(char arr[][50], int horizontale, int vertical) {
     }
 }
 
-int xpositionSnake(int xsnake) {
-    int position = xsnake, key = _getch();
-    switch (key) {
-    case 72: position++;
-        break;
-    case 80: position--;
-        break;
-    }
-
-    return position;
-}
-
-int ypositionSnake(int ysnake) {
-    int position = ysnake, key = _getch();
-    switch (key) {
-    case 77: position++;
-        break;
-    case 75: position--;
-        break;
-    }
-
-    return position;
-}
-void positionSnake(char arr[][50], int xsnake, int ysnake, char snake) {
-    xpositionSnake(xsnake);
-    ypositionSnake(ysnake);
+void positionSnakestart(char arr[][50], int xsnake, int ysnake, char snake) {
+        
     for (int i = 0; i < vertical; i++) {
         for (int j = 0; j < horizontal; j++) {
             if (i == ysnake && j == xsnake) {
+                arr[i][j] = snake;
+            }
+        }
+    }
+
+}
+
+void positionSnake(char arr[][50], int xsnake, int ysnake, char snake) {
+    
+    for (int i = 0; i < vertical; i++) {
+        for (int j = 0; j < horizontal; j++) {
+            if (i == ::ysnake && j == ::xsnake) {
+                arr[i][j] = empt;
+            }
+        }
+    }
+    switch(direction) {
+    case 'U':
+    case'u': ::ysnake -= step;
+        break;
+    case 'D':
+    case 'd': ::ysnake += step;
+        break;
+    case'L':
+    case 'l': ::xsnake -= step;
+        break;
+    case 'R':
+    case 'r': ::xsnake += step;
+        break;
+    }
+
+    for (int i = 0; i < vertical; i++) {
+        for (int j = 0; j < horizontal; j++) {
+            if (i == ::ysnake && j == ::xsnake) {
                 arr[i][j] = snake;
             }
         }
@@ -83,15 +95,19 @@ int main()
     int n = 1, score = 0;
     
     fill(pole, horizontal, vertical);
-    //print(pole, horizontal, vertical);
-
+    print(pole, horizontal, vertical);
+    positionSnakestart(pole, xsnake, ysnake, snake);
     while (n != 0) {        
-        
-        
+        system("cls");        
         print(pole, horizontal, vertical);
-        cout << "Ваш счет: " << score;
-        Sleep(1000);
-        system("cls");
+        cout << "Ваш счет: " << score << endl;
+        //Sleep(1000);        
+        cout << "Выберите направление змейки (U - вверх, D- вниз, R - вправо, L - влево):";
+        cin >> direction;
+        cout << "На сколько переместится: ";
+        cin >> step;
+        //system("PAUSE >> VOID");
+        
     }
     
     return 0;
