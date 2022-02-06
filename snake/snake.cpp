@@ -77,6 +77,19 @@ char move(char direction) {
         
         case 77: direction = 'r';
             break;
+        case 'w': direction = 'u';
+            break;
+
+        case 's': direction = 'd';
+            break;
+
+        case 'a': direction = 'l';
+            break;
+
+        case 'd': direction = 'r';
+            break;
+        case 'x': direction = 'x';
+            break;
         }
         
     }
@@ -116,7 +129,9 @@ void positionSnake(char arr[][horizontal], int xsnake, int ysnake, char snake) {
         break;
     case 'R':
     case 'r': ::xsnake ++;
-        break;    
+        break;
+    case 'x': ::n = 0;
+        break;
     }
 
     
@@ -174,7 +189,7 @@ int main()
         cout << "Ваш счет: " << score << endl;
         print(pole, horizontal, vertical);
         
-        Sleep(250);              
+        Sleep(20);              
         //system("PAUSE");
         if (score == 100) {
             n = 0;
